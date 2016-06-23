@@ -7,6 +7,18 @@
 //This should be done in your php.ini, but this is how to do it if you don't have access to that
 date_default_timezone_set('Etc/UTC');
 require __DIR__ . '/vendor/autoload.php';
+
+$emails = array(// This is the list to which Email will be sent to
+	
+	 'gokuney@gmail.com' =>  'Goku',
+	 'prics.n.bricks@gmail.com' => 'Priyanshu' 
+
+	);
+
+
+foreach( $emails as $em => $name ){
+
+
 //Create a new PHPMailer instance
 $mail = new PHPMailer;
 //Tell PHPMailer to use SMTP
@@ -38,7 +50,11 @@ $mail->setFrom('noreply@aayaamlabs.com', 'AayaamLabs');
 //Set an alternative reply-to address
 $mail->addReplyTo('priyanshu@aayaamlabs.com', 'Priyanshu Sharma');
 //Set who the message is to be sent to
-$mail->addAddress('dir.atishagrawal@gmail.com', 'Atish Dickpiece');
+
+
+$mail->addAddress($em , $name);
+
+
 //Set the subject line
 $mail->Subject = 'Php mail success message';
 //Read an HTML message body from an external file, convert referenced images to embedded,
@@ -49,8 +65,14 @@ $mail->AltBody = 'This is for plain text';
 //Attach an image file
 //$mail->addAttachment('images/phpmailer_mini.png');
 //send the message, check for errors
+
+
 if (!$mail->send()) {
     echo "Mailer Error: " . $mail->ErrorInfo;
 } else {
     echo "Message sent!";
+}
+
+
+
 }
